@@ -1,0 +1,92 @@
+.model small
+
+display macro msg
+        lea dx,msg
+        mov ah,09h
+        int 21h
+endm 
+
+
+.data
+
+         str db 40 dup ('$')
+         rev db 40 dup ('$')
+         msg1 db 10,13, 'enter the string: $'
+         msg2 db 10,13, 'the reverse string is: $'
+         pal db  10,13, 'this string is a palindrome$'
+         npal db  10,13, 'this string is not a polindrome$'
+
+.code
+        mov ax ,@data
+        mov ds,ax
+       
+        mov es,ax
+
+        display msg1
+
+        xor cx,cx           ;clear cx reg.
+                         
+
+       lea si,str
+                                      
+
+        read:   mov ah,01h
+                int 21h
+                cmp al,0dh
+                jz next
+                inc cx
+                mov [si],al
+                inc si
+                
+                jmp read
+
+              
+        next:   lea di,rev
+                mov bp,cx
+
+        trans:  dec si                  ;moving the data to ES with DI as pointer
+                mov al,[si]
+                mov[di],al
+                inc di
+                loop trans
+
+                display msg2
+
+                lea dx,rev
+                mov ah,09h
+                int 21h
+
+                
+                lea di,rev
+                lea si,str
+
+                mov cx,bp
+                cld
+
+         repe  cmpsb
+               jnz fail
+                 
+               display pal 
+                                    
+               jmp last 
+
+         fail: display npal
+                                    
+
+         last:mov ah,4ch
+                int 21h
+  end
+
+  
+/*  output:
+
+C:\masm>plal
+
+enter the string: desk
+the reverse string is: ksed
+this string is not a polindrome
+C:\masm>plal
+
+enter the string: madam
+the reverse string is: madam
+this string is a palindrome   */
