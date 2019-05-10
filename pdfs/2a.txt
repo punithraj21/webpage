@@ -1,0 +1,85 @@
+package test;
+import java.util.Scanner;
+class Staff
+{
+	String StaffId, Name, Phone;
+	double salary;
+	public void getinfo()
+	{
+		Scanner scan=new Scanner(System.in);
+		System.out.println("Enter Staff Id, Name, Phone, Salary");
+		StaffId=scan.next(); 
+		Name=scan.next();
+		Phone=scan.next();
+		salary=scan.nextDouble();
+		//scan.close();
+	}
+	public void display()
+	{
+		System.out.println(" Staff :");
+		System.out.println("Staff ID :"+StaffId+"\n Name :"+Name+"\nPhone No"+Phone);
+	}
+}
+class Teaching extends Staff
+{
+	String dom,pub;
+	public void getinfo()
+	{
+		super.getinfo();
+		Scanner scan=new Scanner(System.in);
+		System.out.println("Enter Domain, Publication");
+		dom=scan.next();
+		pub=scan.next();
+		//scan.close();
+	}
+	public void display()
+	{
+		super.display();
+		System.out.println("Domain "+dom+"\nPublication :"+pub);
+	}
+}
+class Technical extends Teaching
+{
+	String skills;
+	public void getinfo()
+	{
+		super.getinfo();
+		System.out.println(" Enter the Skills");
+		Scanner scan=new Scanner(System.in);
+		skills=scan.next();
+		//scan.close();
+	}
+	public void display()
+	{
+		super.display();
+		System.out.println(" Skills :"+skills);
+	}
+}
+class Contract extends Technical
+{
+	String period;
+	public void getinfo()
+	{
+		super.getinfo();
+		Scanner scan=new Scanner(System.in);
+		System.out.println(" Enter periods :");
+		period=scan.next();
+		scan.close();
+	}
+	public void display()
+	{
+		super.display();
+		System.out.println(" Periods :"+period);
+	}
+}
+public class main1 {
+
+	public static void main(String[] args) {
+		
+			Contract s1 = new Contract();
+			s1.getinfo();
+			s1.display();
+		
+	}
+
+}
